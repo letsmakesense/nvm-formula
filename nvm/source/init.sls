@@ -28,3 +28,13 @@ nvm_profile:
         if [ -f "{{ install_path }}/nvm.sh" ]; then
           source {{ install_path }}/nvm.sh
         fi
+
+{% if salt['pillar.get']('nvm:node_version') %}
+{% set node_version = salt['pillar.get']('nvm:node_version') %}
+
+nvm_install_node:
+  cmd.run:
+    - name: nvm install {{ node_version }}; nvm alias default {{ node_version }}
+    - unless: if [ "$(nvm current)" == "{{ node_version }}" ]; then echo true; fi;
+
+{% endif %}
