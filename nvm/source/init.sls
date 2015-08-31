@@ -1,5 +1,5 @@
 {%- from 'nvm/map.jinja' import nvm with context -%}
-{%- set install_path = salt['pillar.get']('nvm:install_path', '/opt/nvm') -%}
+{%- set install_path = salt['pillar.get']('nvm:install_path', '/usr/local/nvm') -%}
 
 nvm_packages:
   pkg.installed:
